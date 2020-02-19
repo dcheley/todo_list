@@ -1,0 +1,41 @@
+<div class="container text-center">
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Completed Tasks</h5>
+          </div>
+        </a>
+        <% @to_dos.each do |task| %>
+          <%= link_to edit_to_do_url(task), class: "list-group-item list-group-item-action text-left" do %>
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1"><%= task.title %></h5>
+            </div>
+            <p class="mb-1"><%= task.description %></p>
+            <% if task.status == 0 %>
+              <div class="text-danger">
+            <% else %>
+              <div class="text-primary">
+            <% end %>
+              <p class="mb-1"><%= task.due_date.localtime.strftime('%b %Y - %H:%M ') %></p>
+            </div>
+            <%= form_for task, method: :put do |f| %>
+              <%= f.hidden_field :status, value: 1 %>
+              <%= f.submit "Complete", class:"btn btn-primary mb-1" %>
+            <% end %>
+            <%= button_to "Delete", { action: "destroy", id: task.id },
+              method: :delete, data: { confirm: "Are you sure you want to permanently delete this task?" },
+              class: "btn btn-danger" %>
+          <% end %>
+        <% end %>
+        <% if @to_dos.empty? %>
+          <h5 class="mt-4 mb-1">Click <%= link_to "here", to_dos_url %> to start managing tasks.</h5>
+        </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+</div>

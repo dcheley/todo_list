@@ -9,6 +9,54 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+      <a class="navbar-brand" href="/">ToDo</a>
+
+      <%= form_tag(to_dos_url, method: "get", id: "search", class:"form-inline my-2 my-lg-0 ml-auto") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search by title", required: true, class: "form-control mr-sm-2", style: "width: 350px;" %>
+        <%= submit_tag "Search", class:"btn btn-outline-primary my-2 my-sm-0" %>
+      <% end %>
+
+      <% if current_user %>
+        <ul class="navbar-nav ml-auto">
+          <li class="dropdown">
+            <a class="" href="#" data-toggle="dropdown">
+              <%= image_tag('user.svg', height:'32', width:'32') %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item">
+                <%= link_to "Tasks", to_dos_url, class: "nav-link" %>
+              </li>
+              <li class="dropdown-item">
+                <%= link_to "Calendar", :calendar, class: "nav-link" %>
+              </li>
+              <li class="dropdown-item">
+                <%= link_to "History", :history, class: "nav-link" %>
+              </li>
+              <li class="dropdown-item">
+                <%= link_to "Account", edit_user_url(current_user), class: "nav-link" %>
+              </li>
+              <li class="dropdown-item">
+                <%= link_to "Log Out", :logout, class: "nav-link" %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+      <% else %>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_path, class:"nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Log In", :login, class: "nav-link" %>
+          </li>
+        </ul>
+      <% end %>
+    </nav>
+
+    <p class="text-center"><%= flash[:notice] %></p>
+
     <%= yield %>
   </body>
 </html>

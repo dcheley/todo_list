@@ -1,0 +1,23 @@
+<div class="container text-center">
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <h1 class="mb-1">Weekly Schedule</h1>
+    </div>
+  </div>
+
+  <div class="row mt-5 mb-5">
+    <div class="col-12">
+      <% if !current_user.to_dos.empty? %>
+        <%= week_calendar events: @to_dos do |date, tasks| %>
+          <%= date %>
+
+          <% tasks.each do |event| %>
+            <div>
+              <%= link_to event.title, to_do_url(event) %>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
