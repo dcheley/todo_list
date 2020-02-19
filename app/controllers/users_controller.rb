@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     if @user.save
       session[:user_id] = @user.id
-      redirect_to user_path(@user), notice: "Welcome!"
+      redirect_to root_url, notice: "Welcome!"
     else
       render :new
     end
