@@ -53,6 +53,7 @@
           <div class="list-group-item list-group-item-action text-left">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1"><%= task.title %></h5>
+              <small><%= link_to "Edit", edit_to_do_url(task) %></small>
             </div>
             <p class="mb-1"><%= task.description %></p>
               <div class="text-primary">
